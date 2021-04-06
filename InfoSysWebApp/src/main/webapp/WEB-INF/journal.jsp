@@ -3,29 +3,68 @@
 <%@ page import="com.company.entity.Journal" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
-<%@ page import="com.company.dao.inter.JournalDaoInter" %><%--
+<%@ page import="com.company.dao.inter.JournalDaoInter" %>
+<%@ page import="com.company.dao.impl.JournalDaoImpl" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 4/3/2021
   Time: 17:12
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Journal</title>
 </head>
 <body>
-<%
 
-    Users user = (Users) request.getAttribute("user");
+<%
+    JournalDaoImpl journalDao = new JournalDaoImpl();
+    List<Journal> journalList = journalDao.getAll();
+
 
 %>
-<h1>Salam qaqa</h1>
 
-<form method="POST" action="journal" >
-    <input type="hidden" name="journalId" value="2">
-    <input type="submit" name="submit" value="delete">
-</form>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <%for (Journal j :journalList){ %>
+    <div class="col">
+        <div class="card h-100" style="position:relative;">
+            <div class="btn-group" style="position:absolute;left:90%; top:2%; z-index:1">
+                <button type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <form style="margin-bottom: -5px">
+                        <a class="dropdown-item" href="#">Look</a>
+                    </form>
+                    <form class="" style="margin-bottom: -5px">
+                        <button class="dropdown-item btn btn-light" type="submit">Download</button>
+                    </form>
+                    <form class="" style="margin-bottom: -5px">
+                        <button class="dropdown-item btn btn-light" type="submit">Save</button>
+                    </form>
+                    <form class="" style="margin-bottom: -5px">
+                        <button class="dropdown-item btn btn-light" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+
+            <%String path = j.getImageId().getStorageId().getPath()+j.getImageId().getName();
+              String cardTitle = j.getName().split(".")[0];
+            %>
+
+            <img style="width:100%"src=<%=path%> class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%=cardTitle%></h5>
+                <p class="card-text"><%=j.getDescription()%></p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Tarix : <%=j.getUploadDate()%></small>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+
 </body>
 </html>

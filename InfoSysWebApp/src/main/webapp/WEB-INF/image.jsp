@@ -21,7 +21,7 @@
     Users user = (Users) request.getAttribute("user");
 
 %>
-<h1>Salam qaqa</h1>
+<h1>Salam qaqa image</h1>
 
 <form method="POST" action="journal" >
     <input type="hidden" name="journalId" value="2">

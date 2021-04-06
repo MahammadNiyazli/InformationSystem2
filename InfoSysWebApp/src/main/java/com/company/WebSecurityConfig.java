@@ -43,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/sign**").permitAll()
                 .and()
+                .authorizeRequests().antMatchers("/base").hasAnyAuthority("USER","ADMIN")
+                .and()
                 .authorizeRequests().antMatchers("/journal").hasAnyAuthority("USER","ADMIN")
                 .and()
                 .authorizeRequests().antMatchers("/audio").hasAnyAuthority("USER","ADMIN")
@@ -53,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/image").hasAnyAuthority("USER","ADMIN")
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/journal",true).permitAll()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/base",true).permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/login").permitAll()
                  .and().csrf().disable();

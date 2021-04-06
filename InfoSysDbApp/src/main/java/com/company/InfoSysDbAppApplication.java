@@ -1,13 +1,14 @@
 package com.company;
 
-import com.company.entity.Users;
-import com.company.dao.inter.UsersDaoInter;
+import com.company.dao.inter.*;
+import com.company.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.print.Doc;
 import java.util.List;
 
 @SpringBootApplication
@@ -18,7 +19,8 @@ public class InfoSysDbAppApplication {
 
 	}
 //	@Autowired
-//	private UsersDaoInter usersDao;
+//	private JournalDaoInter journalDao;
+
 //
 //	@Bean
 //	public CommandLineRunner run(){
@@ -31,8 +33,9 @@ public class InfoSysDbAppApplication {
 ////				user.setSurname("Niyazli");
 ////				user.setPassword("12458");
 ////				user.setRole("USER");
-//				Users users = usersDao.findByEmail("haqverdiyev2012@mail.ru");
-//				System.out.println(users);
+////				List<Journal> users = journalDao.getAll();
+////				System.out.println(users.get(0).getName());
+//
 //			}
 //		};
 //		return clr;
