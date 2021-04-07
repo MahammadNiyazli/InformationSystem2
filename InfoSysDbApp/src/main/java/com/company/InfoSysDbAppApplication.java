@@ -20,7 +20,7 @@ public class InfoSysDbAppApplication {
 	}
 //	@Autowired
 //	private JournalDaoInter journalDao;
-
+//
 //
 //	@Bean
 //	public CommandLineRunner run(){
@@ -33,8 +33,11 @@ public class InfoSysDbAppApplication {
 ////				user.setSurname("Niyazli");
 ////				user.setPassword("12458");
 ////				user.setRole("USER");
-////				List<Journal> users = journalDao.getAll();
-////				System.out.println(users.get(0).getName());
+//				List<Journal> users = journalDao.getAll();
+//				String word = users.get(0).getName();
+//				System.out.println(word);
+//				String[] arr = word.split("\\.");
+//				System.out.println("arrayin uzunluugu = "+arr[0]);
 //
 //			}
 //		};

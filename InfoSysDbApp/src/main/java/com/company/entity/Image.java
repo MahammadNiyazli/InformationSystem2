@@ -43,7 +43,7 @@ public class Image implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date uploadDate;
     @JoinColumn(name = "storage_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     private Storage storageId;
     @OneToMany(mappedBy = "imageId")
     private List<Journal> journalList;

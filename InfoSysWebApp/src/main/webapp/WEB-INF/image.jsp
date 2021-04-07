@@ -16,16 +16,6 @@
     <title>Title</title>
 </head>
 <body>
-<%
-
-    Users user = (Users) request.getAttribute("user");
-
-%>
-<h1>Salam qaqa image</h1>
-
-<form method="POST" action="journal" >
-    <input type="hidden" name="journalId" value="2">
-    <input type="submit" name="submit" value="delete">
-</form>
+<img src="files/image/kkd.jfif" width="50%">
 </body>
 </html>

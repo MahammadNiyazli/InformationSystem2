@@ -43,10 +43,10 @@ public class Journal implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date uploadDate;
     @JoinColumn(name = "image_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Image imageId;
     @JoinColumn(name = "storage_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     private Storage storageId;
     @OneToMany(mappedBy = "journalId")
     private List<UserJournal> userJournalList;

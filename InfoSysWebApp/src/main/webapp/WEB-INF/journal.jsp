@@ -12,6 +12,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <html>
 <head>
     <title>Journal</title>
@@ -19,7 +20,7 @@
 <body>
 
 <%
-    JournalDaoImpl journalDao = new JournalDaoImpl();
+    JournalDaoImpl journalDao = (JournalDaoImpl) request.getAttribute("journalDao");
     List<Journal> journalList = journalDao.getAll();
 
 
@@ -49,11 +50,21 @@
                 </div>
             </div>
 
-            <%String path = j.getImageId().getStorageId().getPath()+j.getImageId().getName();
-              String cardTitle = j.getName().split(".")[0];
+            <%
+                String path = j.getImageId().getStorageId().getPath();
+                String name = j.getImageId().getName();
+                String nameArr[] = name.split(" ");
+                for(int i=0;i<nameArr.length;i++){
+                    path+=nameArr[i];
+                    if(i< nameArr.length-1){
+                        path+="%20";
+                    }
+                }
+                System.out.println("path =" + path);
+              String cardTitle = j.getName().split("\\.")[0];
             %>
 
-            <img style="width:100%"src=<%=path%> class="card-img-top" alt="...">
+            <img class="card-img-top" style="width:100%" src=<%=path%> alt="..." >
             <div class="card-body">
                 <h5 class="card-title"><%=cardTitle%></h5>
                 <p class="card-text"><%=j.getDescription()%></p>
