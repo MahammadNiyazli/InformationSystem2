@@ -47,7 +47,7 @@ public class ImageController {
     }
 
     @RequestMapping(method = {RequestMethod.POST})
-    public ModelAndView index(@RequestParam(value = "submit" , required = false) String submit
+    public void index(@RequestParam(value = "submit" , required = false) String submit
             ,HttpServletRequest request,HttpServletResponse response,
             @RequestParam(value = "imageId" , required = false) Integer imageId,
                       @RequestParam(value = "description" , required = false) String description){
@@ -129,8 +129,11 @@ public class ImageController {
 
           }
 
-         ModelAndView mv = index(request,null); //baxarsan bu koda
-         return mv;
+        try {
+            response.sendRedirect("base");
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
     }
 }

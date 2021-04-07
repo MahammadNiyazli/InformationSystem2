@@ -50,7 +50,7 @@ public class AudioController {
     }
 
     @RequestMapping(method = {RequestMethod.POST})
-    public ModelAndView index(@RequestParam(value = "submit" , required = false) String submit
+    public void index(@RequestParam(value = "submit" , required = false) String submit
             ,HttpServletRequest request,HttpServletResponse response,
             @RequestParam(value = "audioId" , required = false) Integer audioId,
                       @RequestParam(value = "description" , required = false) String description){
@@ -148,9 +148,11 @@ public class AudioController {
 
           }
 
-        System.out.println("indexe catmisam");
-         ModelAndView mv = index(request); //baxarsan bu koda
-        return mv;
+        try {
+            response.sendRedirect("base");
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
     }
 }

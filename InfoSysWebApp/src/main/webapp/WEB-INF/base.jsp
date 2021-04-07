@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.company.entity.Users" %>
+<%@ page import="com.company.dao.inter.UsersDaoInter" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 4/4/2021
@@ -28,17 +29,24 @@
     <title>Hello, world!</title>
 </head>
 <body>
+
+<%
+    UsersDaoInter usersDao = (UsersDaoInter) request.getAttribute("usersDao");
+    Users user = usersDao.findByEmail(request.getUserPrincipal().getName());
+%>
+
+
 <div class="container-fluid">
-    <div style="position:sticky;top: 0;z-index: 2">
+    <div style="position:sticky;top: 0;z-index: 3">
         <div class="row" >
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%;">
             <div class="container-fluid mx-5">
-                <a class="navbar-brand" href="#"> <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Fist_.svg" width="20px"> What the paper say</a>
+                <a class="navbar-brand" href="#"> <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Fist_.svg" width="20px"> Dəmir Yumruq</a>
                 <div class="navbar-nav" style="float:right;">
                     <div class="btn-group">
                         <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-user-circle"></i>
-                            Mahammad Niyazli
+                            <%=user.getName()+" "+ user.getSurname()%>
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Log out</a>
@@ -72,7 +80,7 @@
     </div>
     <div class="row">
         <div class="col-2">
-            <div class="list-group m-3 nav nav-tabs" id="list-tab" role="tablist">
+            <div class="list-group m-3 nav nav-tabs" id="list-tab" role="tablist" style="position: fixed;width: 13%">
                 <a class="list-group-item list-group-item-action" id="list-journals-list" data-bs-toggle="list" data-toggle='tab' href="#journal" role="tab" aria-controls="jounals">JOURNALS</a>
                 <a class="list-group-item list-group-item-action" id="list-documents-list" data-bs-toggle="list" data-toggle='tab' href="#document" role="tab" aria-controls="documents">DOCUMENTS</a>
                 <a class="list-group-item list-group-item-action" id="list-images-list" data-bs-toggle="list" data-toggle='tab' href="#image" role="tab" aria-controls="images">IMAGES</a>
@@ -82,9 +90,11 @@
         </div>
 
         <div class="allFiles col-10 my-3">
+            <%if(user.getRole().equals("ADMIN")){%>
             <div class="row">
                 <button class="btn btn-secondary mx-3 mb-3" style="width:100%">Upload <i class="fas fa-upload"></i></button>
             </div>
+            <%}%>
             <div class="tab-content">
                 <div class="tab-pane in active" id="journal">
                     <jsp:include page="journal.jsp" />
@@ -123,10 +133,10 @@
             </div>
         </div>
     </div>
+        <footer class="mb-0 bg-info">
+            <p style="text-align:center;border: 2px solid black;">Copyright © 2021 Developed by Mahammad Niyazli</p>
+        </footer>
 
-    <footer class="mb-0 bg-info">
-            <p style="vertical-align: center; text-align:center;border: 2px solid black;margin-top: auto">Copyright © 2021 Developed by Mahammad Niyazli</p>
-    </footer>
 </div>
 
 </body>

@@ -49,16 +49,19 @@ public class JournalController {
     public ModelAndView index(HttpServletRequest request,@RequestParam(value = "submit" , required = false) String submit){
 
         ModelAndView mv = new ModelAndView("journal");
+        mv.addObject("journalDao",journalDao);
         return mv;
     }
 
     @RequestMapping(method = {RequestMethod.POST})
-    public ModelAndView index(@RequestParam(value = "submit" , required = false) String submit
+    public void index(@RequestParam(value = "submit" , required = false) String submit
             ,HttpServletRequest request,HttpServletResponse response,
             @RequestParam(value = "journalId" , required = false) Integer journalId,
                       @RequestParam(value = "description" , required = false) String description){
 
-          if(submit!=null && submit.equals("download")){
+        System.out.println("submit = "+submit);
+
+          if(submit!=null && submit.equals("Download")){
 
               Journal journal = journalDao.getById(journalId);
               PrintWriter out = null;
@@ -82,13 +85,11 @@ public class JournalController {
               fileInputStream.close();
               out.close();
 
-
-
               } catch (IOException exception) {
             exception.printStackTrace();
              }
 
-          }else if(submit!=null && submit.equals("upload")){
+          }else if(submit!=null && submit.equals("Upload")){
 
               String journalName = "";
               String imageName ="";
@@ -135,7 +136,7 @@ public class JournalController {
               }
 
 
-          }else if(submit!=null && submit.equals("save")){
+          }else if(submit!=null && submit.equals("Save")){
 
               Journal journal = journalDao.getById(journalId);
               Users user = usersDao.findByEmail(request.getUserPrincipal().getName());
@@ -146,13 +147,16 @@ public class JournalController {
               userJournalDao.addUserJournal(userJournal);
 
 
-          }else if(submit!=null && submit.equals("delete")){
+          }else if(submit!=null && submit.equals("Delete")){
                journalDao.removeJournal(journalId);
 
           }
 
-         ModelAndView mv = index(request,null); //baxarsan bu koda
-         return mv;
+        try {
+            response.sendRedirect("base");
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
     }
 }
