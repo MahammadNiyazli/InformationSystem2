@@ -105,6 +105,7 @@ public class AudioController {
                           imageName = fileName;
                       }
 
+                      System.out.println("1 defe yazdim ");
                       part.write(savePath + File.separator );
                   }
 

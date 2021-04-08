@@ -27,9 +27,9 @@ public class SearchService  {
         List<Audio> audioList = audioDao.getAll();
 
         for (Audio audio : audioList){
-            if(audio.getName().toLowerCase().equals(word)){
+            if(audio.getName().toLowerCase().contains(word.toLowerCase())){
                 returnAudioList.add(audio);
-            }else if(audio.getDescription().contains(word)){
+            }else if(audio.getDescription().toLowerCase().contains(word.toLowerCase())){
                 returnAudioList.add(audio);
             }else if(audio.getUploadDate().toString().equals(word)){
                 returnAudioList.add(audio);
@@ -43,13 +43,13 @@ public class SearchService  {
         List<Document> documentList = documentDao.getAll();
 
         for (Document document : documentList){
-            if(document.getName().toLowerCase().equals(word)){
+            if(document.getName().toLowerCase().contains(word.toLowerCase())){
                 returnDocumentList.add(document);
-            }else if(document.getDescription().contains(word)){
+            }else if(document.getDescription().toLowerCase().contains(word.toLowerCase())){
                 returnDocumentList.add(document);
             }else if(document.getUploadDate().toString().equals(word)){
                 returnDocumentList.add(document);
-            }else if(document.getRepetedWords().contains(word)){
+            }else if(document.getRepetedWords().toLowerCase().contains(word.toLowerCase())){
                 returnDocumentList.add(document);
             }
         }
@@ -61,9 +61,9 @@ public class SearchService  {
         List<Image> imageList = imageDao.getAll();
 
         for (Image image : imageList){
-            if(image.getName().toLowerCase().equals(word)){
+            if(image.getName().toLowerCase().contains(word.toLowerCase())){
                 returnImageList.add(image);
-            }else if(image.getDescription().contains(word)){
+            }else if(image.getDescription().toLowerCase().contains(word.toLowerCase())){
                 returnImageList.add(image);
             }else if(image.getUploadDate().toString().equals(word)){
                 returnImageList.add(image);
@@ -77,9 +77,9 @@ public class SearchService  {
         List<Journal> journalList = journalDao.getAll();
 
         for (Journal journal : journalList){
-            if(journal.getName().toLowerCase().equals(word)){
+            if(journal.getName().toLowerCase().contains(word.toLowerCase())){
                 returnJournalList.add(journal);
-            }else if(journal.getDescription().contains(word)){
+            }else if(journal.getDescription().toLowerCase().contains(word.toLowerCase())){
                 returnJournalList.add(journal);
             }else if(journal.getUploadDate().toString().equals(word)){
                 returnJournalList.add(journal);
@@ -93,9 +93,9 @@ public class SearchService  {
         List<Video> videoList = videoDao.getAll();
 
         for (Video video : videoList){
-            if(video.getName().toLowerCase().equals(word)){
+            if(video.getName().toLowerCase().contains(word.toLowerCase())){
                 returnVideoList.add(video);
-            }else if(video.getDescription().contains(word)){
+            }else if(video.getDescription().toLowerCase().contains(word.toLowerCase())){
                 returnVideoList.add(video);
             }else if(video.getUploadDate().toString().equals(word)){
                 returnVideoList.add(video);

@@ -41,7 +41,9 @@
         <div class="row" >
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%;">
             <div class="container-fluid mx-5">
-                <a class="navbar-brand" href="#"> <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Fist_.svg" width="20px"> Dəmir Yumruq</a>
+                <form action="base" method="get" style="margin-bottom: -4px">
+                <button class="navbar-brand" style="border: none;font-family:Papyrus;font-weight:bold"> <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Fist_.svg" width="20px"> Dəmir Yumruq</button>
+                </form>
                 <div class="navbar-nav" style="float:right;">
                     <div class="btn-group">
                         <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +51,9 @@
                             <%=user.getName()+" "+ user.getSurname()%>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Log out</a>
+                            <form method="post" action="logout" style="margin-bottom: -3px">
+                            <button class="dropdown-item"  >Log out</button>
+                            </form>
                         </div>
                     </div>
                     <div class="btn-group ml-1">
@@ -57,11 +61,13 @@
                             Saved
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle='tab' href="#savedJournal" href="#">Saved journals</a>
-                            <a class="dropdown-item" data-toggle='tab' href="#savedDocument" href="#">Saved documents</a>
-                            <a class="dropdown-item" data-toggle='tab' href="#savedAudio" href="#">Saved images</a>
-                            <a class="dropdown-item" data-toggle='tab' href="#savedVideo" href="#">Saved videos</a>
-                            <a class="dropdown-item" data-toggle='tab' href="#savedImage" href="#">Saved audios</a>
+                            <div class="nav nav-tabs">
+                            <a class="dropdown-item" data-toggle='tab' href="#savedJournal" >Journals</a>
+                            <a class="dropdown-item" data-toggle='tab' href="#savedDocument" >Documents</a>
+                            <a class="dropdown-item" data-toggle='tab' href="#savedAudio" >Audios</a>
+                            <a class="dropdown-item" data-toggle='tab' href="#savedVideo" >Videos</a>
+                            <a class="dropdown-item" data-toggle='tab' href="#savedImage" >Images</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,8 +77,8 @@
     </div>
     <div class="row" style="height:80px;">
         <div class="col" style="height:100%;">
-            <form class="d-flex bg-info" style="height:100%;">
-                <input class="form-control me-2 bg-info border-0 m-3" style="width:90%; height:60%; font-size:120%;color: aliceblue;" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex bg-info" style="height:100%;" method="get" action="search">
+                <input class="form-control me-2 bg-light border-0 m-3" style="width:90%; height:60%; font-size:120%;" type="search" name="word" placeholder="Search" aria-label="Search">
                 <button class="btn btn-info" style="width:5%" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -90,11 +96,7 @@
         </div>
 
         <div class="allFiles col-10 my-3">
-            <%if(user.getRole().equals("ADMIN")){%>
-            <div class="row">
-                <button class="btn btn-secondary mx-3 mb-3" style="width:100%">Upload <i class="fas fa-upload"></i></button>
-            </div>
-            <%}%>
+
             <div class="tab-content">
                 <div class="tab-pane in active" id="journal">
                     <jsp:include page="journal.jsp" />
@@ -134,10 +136,11 @@
         </div>
     </div>
         <footer class="mb-0 bg-info">
-            <p style="text-align:center;border: 2px solid black;">Copyright © 2021 Developed by Mahammad Niyazli</p>
+            <p style="text-align:center;border: 2px solid black;color: white">Copyright © 2021 Developed by Mahammad Niyazli</p>
         </footer>
 
 </div>
+
 
 </body>
 </html>

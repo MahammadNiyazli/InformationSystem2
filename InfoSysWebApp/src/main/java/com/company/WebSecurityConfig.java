@@ -47,6 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/journal").hasAnyAuthority("USER","ADMIN")
                 .and()
+                .authorizeRequests().antMatchers("/search").hasAnyAuthority("USER","ADMIN")
+                .and()
                 .authorizeRequests().antMatchers("/audio").hasAnyAuthority("USER","ADMIN")
                 .and()
                 .authorizeRequests().antMatchers("/document").hasAnyAuthority("USER","ADMIN")

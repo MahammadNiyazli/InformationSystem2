@@ -122,6 +122,7 @@ public class DocumentController {
                   document.setImageId(imageDao.findByName(imageName));
                   document.setRepetedWords(findMostRepetedWords(DIRDocument + documentName));
 
+                  Thread.sleep(5000);
                   documentDao.addDocument(document);
 
               } catch (IOException exception) {
@@ -167,7 +168,7 @@ public class DocumentController {
             BufferedReader br = new BufferedReader(file);
 
             while ((line = br.readLine()) != null) {
-                String string[] = line.toLowerCase().split("([,.\\s]+) ");
+                String string[] = line.toLowerCase().split(" ");
 
                 for (String s : string) {
                     words.add(s);
@@ -188,6 +189,7 @@ public class DocumentController {
             }
 
             br.close();
+            System.out.println("tekrarlanan soz = "+word);
             return word;
         }catch (Exception exception){
             exception.printStackTrace();

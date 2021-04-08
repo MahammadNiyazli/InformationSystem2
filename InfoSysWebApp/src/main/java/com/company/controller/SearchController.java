@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dao.inter.UsersDaoInter;
 import com.company.entity.*;
 import com.company.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,13 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
+    @Autowired
+    UsersDaoInter usersDao;
+
     @RequestMapping(method = {RequestMethod.GET})
     public ModelAndView index(@RequestParam(value = "word", required = false) String word) {
         try {
+            System.out.println("searchService="+searchService);
 
             List<Audio> audioList = searchService.searchAudio(word);
             List<Video> videoList = searchService.searchVideo(word);
@@ -34,6 +39,7 @@ public class SearchController {
             mv.addObject("documentList",documentList);
             mv.addObject("journalList",journalList);
             mv.addObject("imageList",imageList);
+            mv.addObject("usersDao",usersDao);
 
             return mv;
 

@@ -7,7 +7,8 @@
 <%@ page import="com.company.dao.impl.JournalDaoImpl" %>
 <%@ page import="com.company.dao.inter.AudioDaoInter" %>
 <%@ page import="com.company.dao.impl.AudioDaoImpl" %>
-<%@ page import="com.company.entity.Audio" %><%--
+<%@ page import="com.company.entity.Audio" %>
+<%@ page import="com.company.dao.inter.UsersDaoInter" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 4/3/2021
@@ -30,11 +31,21 @@
 </head>
 <body>
 <%
-    AudioDaoImpl audioDao = (AudioDaoImpl) request.getAttribute("audioDao");
+    UsersDaoInter usersDao = (UsersDaoInter) request.getAttribute("usersDao");
+    Users user = usersDao.findByEmail(request.getUserPrincipal().getName());
+
+    AudioDaoInter audioDao = (AudioDaoInter) request.getAttribute("audioDao");
     List<Audio> audioList = audioDao.getAll();
 
 
 %>
+
+<%if(user.getRole().equals("ADMIN")){%>
+<div class="row">
+    <button class="btn btn-secondary mx-3 mb-3"  data-toggle="modal" data-target="#upload" name="upload" style="width:100%">Upload <i class="fas fa-upload"></i></button>
+</div>
+<%}%>
+
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <%for (Audio a :audioList){ %>
@@ -79,10 +90,12 @@
                         <button class="dropdown-item btn btn-light" type="submit" name="submit" value="save">Save</button>
                         <input type="hidden" name="audioId" value=<%=a.getId()%> >
                     </form>
+                    <%if(user.getRole().equals("ADMIN")){%>
                     <form method="post" action="audio" style="margin-bottom: -5px">
                         <button class="dropdown-item btn btn-light" type="submit" name="submit" value="delete">Delete</button>
                         <input type="hidden" name="audioId" value=<%=a.getId()%> >
                     </form>
+                    <%}%>
                 </div>
             </div>
 
@@ -100,6 +113,44 @@
         </div>
     </div>
     <%}%>
+</div>
+
+
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="UploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UploadModalLabel">Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="audio" method="POST" enctype="multipart/form-data" >
+                <div class="modal-body">
+                    <div class="form-group ">
+                        <label for="chAudio">Choose audio:</label>
+                        <input type="file" class="form-control" name="chFile"  id="chAudio" multiple >
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="chImage">Choose image:</label>
+                        <input type="file" class="form-control" name="chImage"  id="chImage" multiple >
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="desc"> Description:</label>
+                        <input type="text"  class="form-control" name="description"  id="desc">
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal">close</button>
+                    <button type="submit" name="submit" value="upload" class="btn btn-danger" >upload</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

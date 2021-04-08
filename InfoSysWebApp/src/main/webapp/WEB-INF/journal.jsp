@@ -4,7 +4,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
 <%@ page import="com.company.dao.inter.JournalDaoInter" %>
-<%@ page import="com.company.dao.impl.JournalDaoImpl" %><%--
+<%@ page import="com.company.dao.impl.JournalDaoImpl" %>
+<%@ page import="com.company.dao.inter.UsersDaoInter" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 4/3/2021
@@ -32,11 +33,18 @@
 <body>
 
 <%
-    JournalDaoImpl journalDao = (JournalDaoImpl) request.getAttribute("journalDao");
+    JournalDaoInter journalDao = (JournalDaoInter) request.getAttribute("journalDao");
     List<Journal> journalList = journalDao.getAll();
 
-
+    UsersDaoInter usersDao = (UsersDaoInter) request.getAttribute("usersDao");
+    Users user = usersDao.findByEmail(request.getUserPrincipal().getName());
 %>
+
+<%if(user.getRole().equals("ADMIN")){%>
+<div class="row">
+    <button class="btn btn-secondary mx-3 mb-3" data-toggle="modal" data-target="#upload" name="uploadJournal" style="width:100%">Upload <i class="fas fa-upload"></i></button>
+</div>
+<%}%>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <%for (Journal j :journalList){ %>
@@ -81,10 +89,12 @@
                         <button class="dropdown-item btn btn-light" type="submit" name="submit" value="Save">Save</button>
                         <input type="hidden" name="journalId" value=<%=j.getId()%> >
                     </form>
+                    <%if(user.getRole().equals("ADMIN")){%>
                     <form method="post" action="journal" style="margin-bottom: -5px">
                         <button class="dropdown-item btn btn-light" type="submit" name="submit" value="Delete">Delete</button>
                         <input type="hidden" name="journalId" value=<%=j.getId()%> >
                     </form>
+                    <%}%>
                 </div>
             </div>
 
@@ -92,7 +102,7 @@
             <img class="card-img-top" style="width:100%" src=<%=path%> alt="..." >
             <div class="card-body">
                 <h5 class="card-title"><%=cardTitle%></h5>
-                <p class="card-text"><%=j.getDescription()%></p>
+                <p class="card-text"><%=j.getDescription()%> (.pdf)</p>
             </div>
             <div class="card-footer">
                 <small class="text-muted">Tarix : <%=j.getUploadDate()%></small>
@@ -100,6 +110,43 @@
         </div>
     </div>
     <%}%>
+</div>
+
+<div class="modal fade" id="uploadJournal" tabindex="-1" role="dialog" aria-labelledby="UploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UploadModalLabel">Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="journal" method="POST" enctype="multipart/form-data" >
+                <div class="modal-body">
+                    <div class="form-group ">
+                        <label for="chAudio">Choose journal:</label>
+                        <input type="file" class="form-control" name="chFile"  id="chAudio" multiple >
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="chImage">Choose image:</label>
+                        <input type="file" class="form-control" name="chImage"  id="chImage" multiple >
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="desc"> Description:</label>
+                        <input type="text"  class="form-control" name="description"  id="desc">
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal">close</button>
+                    <button type="submit" name="submit" value="upload" class="btn btn-danger" >upload</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 </body>

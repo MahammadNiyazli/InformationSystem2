@@ -5,7 +5,9 @@
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
 <%@ page import="com.company.dao.inter.JournalDaoInter" %>
 <%@ page import="com.company.dao.impl.VideoDaoImpl" %>
-<%@ page import="com.company.entity.Video" %><%--
+<%@ page import="com.company.entity.Video" %>
+<%@ page import="com.company.dao.inter.VideoDaoInter" %>
+<%@ page import="com.company.dao.inter.UsersDaoInter" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 4/3/2021
@@ -19,11 +21,18 @@
 </head>
 <body>
 <%
-    VideoDaoImpl videoDao = (VideoDaoImpl) request.getAttribute("videoDao");
+    VideoDaoInter videoDao = (VideoDaoInter) request.getAttribute("videoDao");
     List<Video> videoList = videoDao.getAll();
 
-
+    UsersDaoInter usersDao = (UsersDaoInter) request.getAttribute("usersDao");
+    Users user = usersDao.findByEmail(request.getUserPrincipal().getName());
 %>
+
+<%if(user.getRole().equals("ADMIN")){%>
+<div class="row">
+    <button class="btn btn-secondary mx-3 mb-3" data-toggle="modal" data-target="#uploadVideo" name="upload" style="width:100%">Upload <i class="fas fa-upload"></i></button>
+</div>
+<%}%>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <%for (Video v :videoList){ %>
@@ -64,10 +73,12 @@
                         <button class="dropdown-item btn btn-light" type="submit" name="submit" value="save">Save</button>
                         <input type="hidden" name="videoId" value=<%=v.getId()%> >
                     </form>
+                    <%if(user.getRole().equals("ADMIN")){%>
                     <form method="post" action="video" style="margin-bottom: -5px">
                         <button class="dropdown-item btn btn-light" type="submit" name="submit" value="delete">Delete</button>
                         <input type="hidden" name="videoId" value=<%=v.getId()%> >
                     </form>
+                    <%}%>
                 </div>
             </div>
 
@@ -86,5 +97,43 @@
     </div>
     <%}%>
 </div>
+
+<div class="modal fade" id="uploadVideo" tabindex="-1" role="dialog" aria-labelledby="UploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="UploadModalLabel">Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="video" method="POST" enctype="multipart/form-data" >
+                <div class="modal-body">
+                    <div class="form-group ">
+                        <label for="chAudio">Choose video:</label>
+                        <input type="file" class="form-control" name="chFile"  id="chAudio" multiple >
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="chImage">Choose image:</label>
+                        <input type="file" class="form-control" name="chImage"  id="chImage" multiple >
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="desc"> Description:</label>
+                        <input type="text"  class="form-control" name="description"  id="desc">
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" data-dismiss="modal">close</button>
+                    <button type="submit" name="submit" value="upload" class="btn btn-danger" >upload</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
