@@ -42,7 +42,7 @@
 
 <%if(user.getRole().equals("ADMIN")){%>
 <div class="row">
-    <button class="btn btn-secondary mx-3 mb-3" data-toggle="modal" data-target="#upload" name="uploadJournal" style="width:100%">Upload <i class="fas fa-upload"></i></button>
+    <button class="btn btn-secondary mx-3 mb-3" data-toggle="modal" data-target="#uploadJournal" name="uploadJournal" style="width:100%">Upload <i class="fas fa-upload"></i></button>
 </div>
 <%}%>
 
