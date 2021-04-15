@@ -145,6 +145,12 @@ public class AudioController {
 
 
           }else if(submit!=null && submit.equals("delete")){
+
+               Audio audio = audioDao.getById(audioId);
+               String fileName = audio.getName();
+               String path = DIRAudio;
+               File myFile = new File(path+fileName);
+               myFile.delete();
                audioDao.removeAudio(audioId);
 
           }

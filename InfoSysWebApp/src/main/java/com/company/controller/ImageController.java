@@ -125,6 +125,11 @@ public class ImageController {
 
 
           }else if(submit!=null && submit.equals("delete")){
+              Image image = imageDao.getById(imageId);
+              String fileName = image.getName();
+              String path = DIRImage;
+              File myFile = new File(path+fileName);
+              myFile.delete();
                imageDao.removeImage(imageId);
 
           }

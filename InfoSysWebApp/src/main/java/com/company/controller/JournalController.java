@@ -1,10 +1,11 @@
 package com.company.controller;
 
 import com.company.dao.inter.*;
-import com.company.entity.Image;
-import com.company.entity.Journal;
-import com.company.entity.UserJournal;
-import com.company.entity.Users;
+import com.company.entity.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -89,7 +91,7 @@ public class JournalController {
             exception.printStackTrace();
              }
 
-          }else if(submit!=null && submit.equals("Upload")){
+          }else if(submit!=null && submit.equals("upload")){
 
               String journalName = "";
               String imageName ="";
@@ -126,6 +128,9 @@ public class JournalController {
                   journal.setUploadDate(new Date(new java.util.Date().getTime()));
                   journal.setStorageId(storageDao.getById(1));
                   journal.setImageId(imageDao.findByName(imageName));
+                  journal.setRepetedWords(findMostRepetedWords(DIRJournal + journalName));
+
+                  Thread.sleep(4000);
 
                   journalDao.addJournal(journal);
 
@@ -133,6 +138,10 @@ public class JournalController {
                   exception.printStackTrace();
               } catch (ServletException e) {
                   e.printStackTrace();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              } catch (Exception exception) {
+                  exception.printStackTrace();
               }
 
 
@@ -148,6 +157,11 @@ public class JournalController {
 
 
           }else if(submit!=null && submit.equals("Delete")){
+              Journal journal = journalDao.getById(journalId);
+              String fileName = journal.getName();
+              String path = DIRJournal;
+              File myFile = new File(path+fileName);
+              myFile.delete();
                journalDao.removeJournal(journalId);
 
           }
@@ -158,5 +172,56 @@ public class JournalController {
             exception.printStackTrace();
         }
 
+    }
+
+
+
+    public String findMostRepetedWords(String path) throws Exception {
+        File myFile = null;
+        String myword = "";
+        int count1 = 0, maxCount1 = 0;
+        List<String> mywords = new ArrayList<String>();
+        XWPFWordExtractor myextractor = null;
+        try {
+
+            myFile = new File(path);
+
+            PDDocument myDocument = PDDocument.load(myFile);
+
+            PDFTextStripper myPdfStripper = new PDFTextStripper();
+
+            String myfileData = myPdfStripper.getText(myDocument);
+
+
+
+
+            String string[] = myfileData.toLowerCase().split(" ");
+
+            for (String s : string) {
+                mywords.add(s);
+                System.out.println(s);
+            }
+
+
+            for (int i = 0; i < mywords.size(); i++) {
+                count1 = 1;
+
+                for (int j = i + 1; j < mywords.size(); j++) {
+                    if (mywords.get(i).equals(mywords.get(j))) {
+                        count1++;
+                    }
+                }
+
+                if (count1 > maxCount1) {
+                    maxCount1 = count1;
+                    myword = mywords.get(i);
+                }
+            }
+            myDocument.close();
+        }catch (Exception exep) {
+            exep.printStackTrace();
+        }
+
+        return myword;
     }
 }

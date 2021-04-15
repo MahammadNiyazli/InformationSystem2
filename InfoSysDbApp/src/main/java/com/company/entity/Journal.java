@@ -42,6 +42,9 @@ public class Journal implements Serializable {
     @Column(name = "upload_date")
     @Temporal(TemporalType.DATE)
     private Date uploadDate;
+    @Lob
+    @Column(name = "repeted_words")
+    private String repetedWords;
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Image imageId;
@@ -94,6 +97,14 @@ public class Journal implements Serializable {
 
     public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public String getRepetedWords() {
+        return repetedWords;
+    }
+
+    public void setRepetedWords(String repetedWords) {
+        this.repetedWords = repetedWords;
     }
 
     public Image getImageId() {

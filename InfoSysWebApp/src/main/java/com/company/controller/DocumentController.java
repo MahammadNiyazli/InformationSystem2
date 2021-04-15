@@ -146,8 +146,12 @@ public class DocumentController {
 
 
         } else if (submit != null && submit.equals("delete")) {
+            Document document = documentDao.getById(documentId);
+            String fileName = document.getName();
+            String path = DIRDocument;
+            File myFile = new File(path+fileName);
+            myFile.delete();
             documentDao.removeDocument(documentId);
-
         }
 
         try {
@@ -159,47 +163,47 @@ public class DocumentController {
     }
 
     public String findMostRepetedWords(String path) throws Exception {
-        File file = null;
-        String word = "";
-        int count = 0, maxCount = 0;
-        List<String> words = new ArrayList<String>();
-        XWPFWordExtractor extractor = null;
+        File myfile = null;
+        String myword = "";
+        int count1 = 0, maxCount1 = 0;
+        List<String> mywords = new ArrayList<String>();
+        XWPFWordExtractor myextractor = null;
         try {
 
-            file = new File(path);
+            myfile = new File(path);
 
-            FileInputStream fis = new FileInputStream(file.getAbsolutePath());
-            XWPFDocument document1 = new XWPFDocument(fis);
-            extractor = new XWPFWordExtractor(document1);
-            String fileData = extractor.getText();
+            FileInputStream fileis = new FileInputStream(myfile.getAbsolutePath());
+            XWPFDocument document1 = new XWPFDocument(fileis);
+            myextractor = new XWPFWordExtractor(document1);
+            String myfileData = myextractor.getText();
 
 
-            String string[] = fileData.toLowerCase().split(" ");
+            String string[] = myfileData.toLowerCase().split(" ");
 
             for (String s : string) {
-                words.add(s);
+                mywords.add(s);
                 System.out.println(s);
             }
 
 
-            for (int i = 0; i < words.size(); i++) {
-                count = 1;
+            for (int i = 0; i < mywords.size(); i++) {
+                count1 = 1;
 
-                for (int j = i + 1; j < words.size(); j++) {
-                    if (words.get(i).equals(words.get(j))) {
-                        count++;
+                for (int j = i + 1; j < mywords.size(); j++) {
+                    if (mywords.get(i).equals(mywords.get(j))) {
+                        count1++;
                     }
                 }
 
-                if (count > maxCount) {
-                    maxCount = count;
-                    word = words.get(i);
+                if (count1 > maxCount1) {
+                    maxCount1 = count1;
+                    myword = mywords.get(i);
                 }
             }
 
         }catch (Exception exep) {
             exep.printStackTrace();
         }
-        return word;
+        return myword;
     }
 }

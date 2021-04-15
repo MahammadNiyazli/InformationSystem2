@@ -143,6 +143,11 @@ public class VideoController {
 
 
           }else if(submit!=null && submit.equals("delete")){
+              Video video = videoDao.getById(videoId);
+              String fileName = video.getName();
+              String path = DIRVideo;
+              File myFile = new File(path+fileName);
+              myFile.delete();
                videoDao.removeVideo(videoId);
 
           }
