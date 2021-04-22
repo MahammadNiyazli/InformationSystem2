@@ -87,7 +87,7 @@
     <div class="row">
         <div class="col-2">
             <div class="list-group m-3 nav nav-tabs" id="list-tab" role="tablist" style="position: fixed;width: 13%">
-                <a class="list-group-item list-group-item-action" id="list-journals-list" data-bs-toggle="list" data-toggle='tab' href="#journal" role="tab" aria-controls="jounals">JOURNALS</a>
+                <a class="list-group-item list-group-item-action active" id="list-journals-list" data-bs-toggle="list" data-toggle='tab' href="#journal" role="tab" aria-controls="jounals">JOURNALS</a>
                 <a class="list-group-item list-group-item-action" id="list-documents-list" data-bs-toggle="list" data-toggle='tab' href="#document" role="tab" aria-controls="documents">DOCUMENTS</a>
                 <a class="list-group-item list-group-item-action" id="list-images-list" data-bs-toggle="list" data-toggle='tab' href="#image" role="tab" aria-controls="images">IMAGES</a>
                 <a class="list-group-item list-group-item-action" id="list-videos-list" data-bs-toggle="list" data-toggle='tab' href="#video" role="tab" aria-controls="videos">VIDEOS</a>
@@ -98,6 +98,7 @@
         <div class="allFiles col-10 my-3">
 
             <div class="tab-content">
+
                 <div class="tab-pane in active" id="journal">
                     <jsp:include page="journal.jsp" />
                 </div>

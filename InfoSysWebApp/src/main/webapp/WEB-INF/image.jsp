@@ -60,7 +60,7 @@
                     String cardTitle = i.getName().split("\\.")[0];
                 %>
 
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-right">
                     <form style="margin-bottom: -5px">
                         <div class="case">
                             <a class="dropdown-item" href=<%=pathImage%> rel="case" target="_blank">Look</a>

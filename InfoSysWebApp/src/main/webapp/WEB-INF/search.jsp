@@ -123,7 +123,7 @@
                         String cardTitle = v.getName().split("\\.")[0];
                     %>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <form style="margin-bottom: -5px">
                             <div class="case">
                                 <a class="dropdown-item" href=<%=pathVideo%> rel="case" target="_blank">Look</a>
@@ -189,7 +189,7 @@
                         String cardTitle = a.getName().split("\\.")[0];
                     %>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <form style="margin-bottom: -5px">
                             <div class="case">
                                 <a class="dropdown-item" href=<%=pathAudio%> rel="case" target="_blank">Look</a>
@@ -256,7 +256,7 @@
                         String cardTitle = d.getName().split("\\.")[0];
                     %>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <form style="margin-bottom: -5px">
                             <a class="dropdown-item" href=<%=pathDocument%>>Look</a>
                         </form>
@@ -313,7 +313,7 @@
                         String cardTitle = i.getName().split("\\.")[0];
                     %>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <form style="margin-bottom: -5px">
                             <div class="case">
                                 <a class="dropdown-item" href=<%=pathImage%> rel="case" target="_blank">Look</a>
@@ -377,7 +377,7 @@
                         String cardTitle = j.getName().split("\\.")[0];
                     %>
 
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <form style="margin-bottom: -5px">
                             <div class="case">
                                 <a class="dropdown-item" href=<%=pathJournal%> rel="case" target="_blank">Look</a>

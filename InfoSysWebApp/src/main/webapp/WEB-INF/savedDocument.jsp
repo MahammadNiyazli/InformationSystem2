@@ -57,7 +57,7 @@
                     String cardTitle = ud.getDocumentId().getName().split("\\.")[0];
                 %>
 
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-right">
                     <form style="margin-bottom: -5px">
                         <a class="dropdown-item" href=<%=pathDocument%>>Look</a>
                     </form>
